@@ -1,0 +1,225 @@
+<html>
+
+<head>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+    <link rel="stylesheet" href="sweetalert2.scss" />
+
+    <!--Font Awesome (added because you use icons in your prepend/append)-->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <!-- Inline CSS based on choices in "Settings" tab -->
+    <style>
+        .bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{
+            font-family: Arial, Helvetica, sans-serif; color: black
+        }
+        
+        .bootstrap-iso form button, .bootstrap-iso form button:hover{
+            color: #ffffff !important;
+        }
+        .asteriskField{
+            color: red;
+        }
+        
+        .error{
+            color: red;
+        }
+        .col-md-3{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: 180px;
+            margin-left: -350px;
+            width: 100px;
+            height: 100px;
+        }
+        .button {
+            background-color:#480a6b;
+            -moz-border-radius:3px;
+            -webkit-border-radius:3px;
+            border-radius:3px;
+            border:1px solid #0b0e07;
+            /* cursor:pointer; */
+            font-family:Arial;
+            padding:5px 15px;
+            width: 22%;
+        }
+        .button:hover {
+            background-color:#151018;
+        }
+        .button:active {
+            position:relative;
+            top:1px;
+        }
+        select{
+            float: left;
+        }
+        .select-css {
+            padding: .2em 1.4em .1em .4em;
+            width: 65%;
+            box-sizing: border-box;
+            border: 1px solid #aaa;
+            box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+            border-radius: .5em;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: #fff;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+                linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+            background-repeat: no-repeat, repeat;
+            background-position: right .7em top 50%, 0 0;
+            background-size: .65em auto, 100%;
+        }
+        .select-css:focus {
+            border-color: #aaa;
+            box-shadow: 0 0 1px 1px rgba(59, 153, 252, .7);
+            box-shadow: 0 0 0 3px -moz-mac-focusring;
+            color: #222;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body align="center">
+    <div class="bootstrap-iso">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <form name="input" action="excel.php" id="form" class="form-horizontal" method="POST">
+                        <div class="form-group form-group-lg">
+                            <label class="control-label col-sm-3 requiredField">
+                                Report type
+                                <span class="asteriskField">
+                                    *
+                                </span>
+                            </label>
+                            <select name="report_type" id="report_type" class="select-css" required>
+                                <option value="">.......</option>
+                                <option value="1" required>iDeclare</option>
+                                <option value="2" required>eGrade</option>
+                                <option value="3" required>eRMR</option>
+                            </select>
+                        </div><br />
+                        <div id="status" class="form-group form-group-lg">
+                            <label class="control-label col-sm-3 requiredField">
+                                Status
+                                <span class="asteriskField">
+                                    *
+                                </span>
+                            </label>
+                            <select name="status" class="select-css" required>
+                                <option value="">.......</option>
+                                <option value="status1" required>Processed by Registrar </option>
+                                <option value="status2" required>Pending Cases</option>
+                            </select>
+                        </div><br />
+                        <div class="form-group form-group-lg">
+                            <label class="control-label col-sm-3 requiredField" for="date1">
+                                Start Date
+                                <span class="asteriskField">
+                                    *
+                                </span>
+                            </label>
+                            <div class="col-sm-8">
+                                <div class="input-group" id="icon">
+                                    <div class="input-group-addon" name="icon">
+                                        <i class="fa fa-th">
+                                        </i>
+                                    </div>
+                                    <input class="form-control" id="date1" placeholder="MM/DD/YYYY" type="text" name="from"
+                                        required>
+                                </div>
+                                <label for="date1" generated="true" class="error"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-lg">
+                            <label class="control-label col-sm-3 requiredField" for="date1">
+                                End Date
+                                <span class="asteriskField">
+                                    *
+                                </span>
+                            </label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span><i class="fa fa-th"></i></span>
+                                    </div>
+                                    <input class="form-control required error" id="date2" placeholder="MM/DD/YYYY" type="text"
+                                        name="to"><br />
+                                </div>
+                                <label for="date2" generated="true" class="error"></label>
+                            </div>
+                        </div></br></br>
+                        <button name="submit" type="submit" class="button">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.14.0/dist/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            var date_input1 = $('input[name="from"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input1.datepicker({
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+
+            var date_input2 = $('input[name="to"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input2.datepicker({
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+
+            $("#form").validate();
+
+
+            $('#submit').click(function (e) {
+                e.preventDefault();
+                var isValid = $('#form').valid();
+                if (isValid) {
+                    window.location = "/excel.php";
+                } else {
+
+                }
+            });
+
+            $("#status").hide();
+            var ReportType = jQuery('#report_type');
+            var select = this.value;
+            ReportType.change(function () {
+                if ($(this).val() == "1") {
+                    $("#status").show();
+                } else {
+                    $("#status").hide();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
